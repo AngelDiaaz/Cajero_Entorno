@@ -5,6 +5,6 @@ import java.util.ArrayList;
 import models.*;
 
 public class Almacen {
-	static ArrayList<Cuentas> cuentasSistema= new ArrayList<>();
-	static ArrayList<Usuario> usuariosSistema = new ArrayList<>();
+	static public ArrayList<Cuentas> cuentasSistema= new ArrayList<>();
+	static public ArrayList<Usuario> usuariosSistema = new ArrayList<>();
 }

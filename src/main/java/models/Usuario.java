@@ -11,6 +11,7 @@ public class Usuario {
 		super();
 		this.nombre = nombre;
 		this.dni = dni;
+		this.cuentas = new ArrayList<>();
 	}
 
 	public String getNombre() {
