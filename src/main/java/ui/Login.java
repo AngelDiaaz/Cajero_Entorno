@@ -27,7 +27,6 @@ public class Login {
 	private JLabel lblNewLabel_2;
 	private JPasswordField passPIN;
 	private JButton btnLogin;
-	private JButton btnRegistro;
 	
 	public Login() {
 		initialize();
@@ -71,55 +70,40 @@ public class Login {
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean valido = true;
-				
+				int pin=0;
+				boolean valido=true;
 				try
 				{
-					int numero = Integer.parseInt(String.valueOf(passPIN.getPassword()));
-				} catch(Exception x){
+					pin=Integer.parseInt(String.valueOf(passPIN.getPassword()));
+				}catch(Exception E)
+				{
 					valido=false;
 				}
-				
-				if(valido==false)
+				if(valido && pin<10000 && pin>999)
 				{
-					JOptionPane.showMessageDialog(btnLogin, "El PIN debe ser unicamente números");
+					if(Almacen.usuario1.getCuenta().getPin()==pin && Almacen.usuario1.getDni().equals(txtDni.getText()))
+					{
+						CuentaView window = new CuentaView(Almacen.usuario1);
+						frame.dispose();
+					}
+					else if(Almacen.usuario2.getCuenta().getPin()==pin && Almacen.usuario2.getDni().equals(txtDni.getText()))
+					{
+						CuentaView window = new CuentaView(Almacen.usuario2);
+						frame.dispose();
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(btnLogin, "No se encuentra este usuario en el sistema o el pin es incorrecto");
+					}
 				}
-				
-				else if(String.valueOf(passPIN.getPassword()).length()>4 || String.valueOf(passPIN.getPassword()).length()>4)
-				{
-					JOptionPane.showMessageDialog(btnLogin, "El numero pin debe ser exactamente 4 números");
-				}
-				
 				else
 				{
-					for (int i = 0; i < Almacen.usuariosSistema.size(); i++) {
-						if(Almacen.usuariosSistema.get(i).equals(txtDni.getText()))
-						{
-							for (int j = 0; j < Almacen.usuariosSistema.get(i).getCuentas().size(); j++) {
-								if(Almacen.usuariosSistema.get(i).getCuentas().get(j).equals(String.valueOf(passPIN.getPassword())))
-								{
-									frame.setVisible(false);
-									CuentaView window = new CuentaView(Almacen.usuariosSistema.get(i).getCuentas().get(j));
-									break;
-								}
-								if(j==Almacen.usuariosSistema.get(i).getCuentas().size()-1 && !Almacen.usuariosSistema.get(i).getCuentas().get(j).equals(String.valueOf(passPIN.getPassword())))
-								{
-									JOptionPane.showMessageDialog(btnLogin, "Este usuario no tiene ninguna cuenta asociada a este pin");
-									break;
-								}
-							}
-						}
-						if(i==Almacen.usuariosSistema.size()-1 && !Almacen.usuariosSistema.get(i).equals(txtDni.getText()))
-						{
-							JOptionPane.showMessageDialog(btnLogin, "No se encuentra este usuario en la base de datos");
-							break;
-						}
-					}
+					JOptionPane.showMessageDialog(btnLogin, "El pin debe ser 4 numeros");
 				}
 			}
 		});
 		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnLogin.setBounds(229, 276, 115, 34);
+		btnLogin.setBounds(318, 275, 115, 34);
 		frame.getContentPane().add(btnLogin);
 		
 		passPIN = new JPasswordField();
@@ -127,16 +111,5 @@ public class Login {
 		passPIN.setFont(new Font("Tahoma", Font.BOLD, 15));
 		passPIN.setBounds(229, 201, 314, 34);
 		frame.getContentPane().add(passPIN);
-		
-		btnRegistro = new JButton("Registrar Cuenta");
-		btnRegistro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				RegisterView window = new RegisterView();
-			}
-		});
-		btnRegistro.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnRegistro.setBounds(382, 274, 161, 37);
-		frame.getContentPane().add(btnRegistro);
 	}
 }

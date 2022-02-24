@@ -1,5 +1,7 @@
 package models;
 
+import almacen.Almacen;
+
 public class Cuentas {
 	private int ncuenta;
 	private int pin;
@@ -37,10 +39,14 @@ public class Cuentas {
 		this.saldo+=ingreso;
 	}
 	
-	public void transferencia(double dinero, Cuentas cuenta)
+	public void transferencia(double dinero, int numero_cuenta)
 	{
-		this.retirar(dinero);
-		cuenta.ingresar(dinero);
+		for (int i = 0; i < Almacen.listacuentas.size(); i++) {
+			if(Almacen.listacuentas.get(i).getNcuenta() == numero_cuenta) {
+				this.retirar(dinero);
+				Almacen.listacuentas.get(i).ingresar(dinero);
+			}
+		}
 	}
 	
 	

@@ -5,13 +5,12 @@ import java.util.ArrayList;
 public class Usuario {
 	private String nombre;
 	private String dni;
-	private ArrayList<Cuentas> cuentas;
+	private Cuentas cuenta;
 	
 	public Usuario(String nombre, String dni) {
 		super();
 		this.nombre = nombre;
 		this.dni = dni;
-		this.cuentas = new ArrayList<>();
 	}
 
 	public String getNombre() {
@@ -22,11 +21,11 @@ public class Usuario {
 		return dni;
 	}
 
-	public ArrayList<Cuentas> getCuentas() {
-		return cuentas;
+	public Cuentas getCuenta() {
+		return cuenta;
 	}
 	
-	public void anndirCuenta(Cuentas cuenta) {
-		this.cuentas.add(cuenta);
+	public void setCuenta(Cuentas cuenta) {
+		this.cuenta=cuenta;
 	}
 }
