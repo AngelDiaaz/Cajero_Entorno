@@ -69,7 +69,10 @@ public class TransferenciaView {
 		btnIngresar = new JButton("Ingresar");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(txtNCuenta.getText().isEmpty() || txtImporte.getText().isEmpty())
+				String importe = txtImporte.getText();
+				String nCuenta = txtNCuenta.getText();
+				
+				if(nCuenta.isEmpty() || importe.isEmpty())
 				{
 					JOptionPane.showMessageDialog(btnIngresar, "Rellene todos los campos");
 				}
@@ -78,7 +81,7 @@ public class TransferenciaView {
 					boolean valido = false;
 					try {
 						for (int i = 0; i < Almacen.listacuentas.size(); i++) {
-							if(Integer.parseInt(txtNCuenta.getText())==Almacen.listacuentas.get(i).getNcuenta())
+							if(Integer.parseInt(nCuenta)==Almacen.listacuentas.get(i).getNcuenta())
 							{
 								valido = true;
 								break;
@@ -91,16 +94,7 @@ public class TransferenciaView {
 					
 					if(valido)
 					{
-						if(Integer.parseInt(txtImporte.getText())>usuario.getCuenta().getSaldo())
-						{
-							JOptionPane.showMessageDialog(btnIngresar, "No tiene suficiente dinero");
-						}
-						else
-						{
-							usuario.getCuenta().transferencia(Double.parseDouble(txtImporte.getText()), Integer.parseInt(txtNCuenta.getText()));
-							frame.dispose();
-							CuentaView window = new CuentaView(usuario);
-						}
+						transferencia(usuario, importe, Integer.parseInt(nCuenta));
 					}
 					else
 					{
@@ -123,7 +117,21 @@ public class TransferenciaView {
 		btnAtras.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnAtras.setBounds(190, 269, 144, 31);
 		frame.getContentPane().add(btnAtras);
-		
-		
 	}
+	
+	public boolean transferencia(Usuario usuario, String importe, int nCuenta) {
+		if(Integer.parseInt(importe)>usuario.getCuenta().getSaldo())
+		{
+			JOptionPane.showMessageDialog(btnIngresar, "No tiene suficiente dinero");
+			return false;
+		}
+		else
+		{
+			usuario.getCuenta().transferencia(Double.parseDouble(importe), nCuenta);
+			frame.dispose();
+			CuentaView window = new CuentaView(usuario);
+			return true;
+		}
+	}
+
 }

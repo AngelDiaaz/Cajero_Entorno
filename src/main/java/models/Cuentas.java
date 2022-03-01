@@ -31,6 +31,22 @@ public class Cuentas {
 		return duenno;
 	}
 	
+	public void setNcuenta(int ncuenta) {
+		this.ncuenta = ncuenta;
+	}
+
+	public void setPin(int pin) {
+		this.pin = pin;
+	}
+
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
+	}
+
+	public void setDuenno(Usuario duenno) {
+		this.duenno = duenno;
+	}
+
 	public void retirar(double retiro) {
 			this.saldo-=retiro;
 	}
